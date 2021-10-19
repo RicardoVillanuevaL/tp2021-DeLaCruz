@@ -8,3 +8,8 @@ final gradientPrimary = LinearGradient(
     colors: [colorBlueDark2, colorBlue],
     end: Alignment.bottomCenter,
     begin: Alignment.topCenter);
+
+final String fontsGothic = 'Gothic-Bold';
+
+final messageNotExistList = TextStyle(color: Colors.white, fontSize: 16);
+final titleAppBar = TextStyle(fontFamily: fontsGothic, fontSize: 24);

@@ -18,6 +18,13 @@ dependencies:
   provider: ^6.0.1
   shared_preferences: ^2.0.7
   animate_do: ^2.0.0
+  http: ^0.13.4
+  intl:
+  #camera
+  #http
+  #location locator
+  #google maps
+
 
 dev_dependencies:
   flutter_test:
@@ -40,8 +47,17 @@ flutter_native_splash:
 
 
 flutter:
+  assets:
+    - assets/
+    - assets/fonts/
+
+  fonts:
+    - family: Gothic-Bold
+      fonts:
+      - asset: assets/fonts/Hess-Gothic-Bold.ttf
+        style: normal
 
   uses-material-design: true
 
-  assets:
-    - assets/
+
+
