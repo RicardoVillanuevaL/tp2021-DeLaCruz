@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:tp_2021_app/models/dashBoard1Model.dart';
+import 'package:tp_2021_app/models/equiposPendientesModel.dart';
 import 'package:tp_2021_app/pages/home/drawer/drawerIconMenu.dart';
 import 'package:tp_2021_app/pages/widgets/actionWidgets.dart';
 import 'package:tp_2021_app/resources/colors.dart';
@@ -58,23 +59,14 @@ class _BodyHomePageState extends State<BodyHomePage> {
     ddl2 = true;
     ddl3 = true;
     initializeDateFormatting();
-    //prueba();
     super.initState();
-  }
-
-  void prueba() async {
-    final listPrueba = await dashBoardServices.getAllEventosTodayByEmpl(
-        pruebaFormat.format(date), 1);
-    print(listPrueba);
-    listPrueba.forEach((element) {
-      listEventosHoy.add(element);
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     final mounthName = DateFormat('MMMM', 'es');
     final dayName = DateFormat('dd/MM');
+    final size = MediaQuery.of(context).size;
     return Container(
         child: Column(
       children: [
@@ -100,17 +92,21 @@ class _BodyHomePageState extends State<BodyHomePage> {
                   if (snapshot.hasData) {
                     final list = snapshot.data;
                     return Container(
-                      child: list!.length != 0
-                          ? Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: list
-                                  .map((e) => ListTile(
-                                        title: Text(
-                                          e.nombreProyecto,
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      ))
-                                  .toList(),
+                      height: list!.length != 0 ? size.height / 3 : 50,
+                      child: list.length != 0
+                          ? SingleChildScrollView(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: list
+                                    .map((e) => ListTile(
+                                          title: Text(
+                                            e.nombreProyecto,
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ))
+                                    .toList(),
+                              ),
                             )
                           : Text('No tienes Eventos el dia de hoy',
                               style: messageNotExistList),
@@ -122,39 +118,83 @@ class _BodyHomePageState extends State<BodyHomePage> {
               )
             : SizedBox(),
         InkWell(
-            //onTap: () => setState(() => ddl2 = !ddl2),
-            onTap: () {
-              prueba();
-            },
+            onTap: () {},
             child: ItemTitleSeparated(
                 title: 'Eventos de ${mounthName.format(date).toUpperCase()}',
                 openSeccion: !ddl2)),
         ddl2
-            ? Container(
-                child: listEventosMes.length != 0
-                    ? Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children:
-                            listEventosMes.map((e) => ListTile()).toList(),
-                      )
-                    : Text('No tienes Eventos este mes',
-                        style: messageNotExistList))
+            ? FutureBuilder(
+                future: dashBoardServices.getAllEventosTodayByEmpl(
+                    pruebaFormat.format(date), 1),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<DashBoard1Model>> snapshot) {
+                  if (snapshot.hasData) {
+                    final list = snapshot.data;
+                    return Container(
+                        height: list!.length != 0 ? size.height / 3 : 50,
+                        child: list.length != 0
+                            ? SingleChildScrollView(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: list
+                                      .map((e) => ListTile(
+                                            title: Text(
+                                              e.nombreProyecto,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ))
+                                      .toList(),
+                                ),
+                              )
+                            : Text('No tienes Eventos este mes',
+                                style: messageNotExistList));
+                  } else {
+                    return LinearProgressIndicator();
+                  }
+                },
+              )
             : SizedBox(),
         InkWell(
             onTap: () => setState(() => ddl3 = !ddl3),
             child: ItemTitleSeparated(
                 title: 'Equipos Pendientes', openSeccion: !ddl3)),
         ddl3
-            ? Container(
-                child: listEquiposPendientes.length != 0
-                    ? Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: listEquiposPendientes
-                            .map((e) => ListTile())
-                            .toList(),
-                      )
-                    : Text('No tienes Equipos Pendientes por devolver',
-                        style: messageNotExistList),
+            ? FutureBuilder(
+                future: dashBoardServices.getAllEquiposPendientes(
+                    pruebaFormat.format(date), 1),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<EquiposPendiente>> snapshot) {
+                  if (snapshot.hasData) {
+                    final list = snapshot.data;
+
+                    return Container(
+                        height: list!.length != 0 ? size.height / 3 : 50,
+                        child: list.length != 0
+                            ? SingleChildScrollView(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: list
+                                      .map((e) => ListTile(
+                                            title: Text(
+                                              e.equipo.toString(),
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            leading: Text(
+                                                '${e.idProyecto.toString()}',
+                                                style: TextStyle(
+                                                    color: Colors.white)),
+                                          ))
+                                      .toList(),
+                                ),
+                              )
+                            : Text('No tienes Equipos Pendientes por devolver',
+                                style: messageNotExistList));
+                  } else {
+                    return LinearProgressIndicator();
+                  }
+                },
               )
             : SizedBox(),
       ],

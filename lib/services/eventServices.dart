@@ -1,7 +1,8 @@
 import 'dart:convert';
 
-import 'package:tp_2021_app/models/eventModel.dart';
 import 'package:http/http.dart' as http;
+import 'package:tp_2021_app/models/eventosAgendaModel.dart';
+import 'package:tp_2021_app/resources/strings.dart';
 
 class _EventServices {
   Map<dynamic, dynamic> header = {};
@@ -10,18 +11,21 @@ class _EventServices {
     header = {"Content-Type": "application/json"};
   }
 
-  Future<List<EventModel>> getAllEventos() async {
-    var endpoint = Uri.https(
-        'tp2021database.herokuapp.com', '/eventos/consulta/getAllEventos');
+  Future<List<EventosAgenda>> getAllEventosAgenda(
+      String fecha, int idEmpleado) async {
+    var endpoint = Uri.https(URL,
+        '/mobile/consulta/getAllEventosProgramadosByEmpl/$fecha/$idEmpleado');
 
     final response =
         await http.get(endpoint, headers: {"Content-Type": "application/json"});
     final List<dynamic> decodedData = json.decode(response.body);
-    final List<EventModel> list = [];
+    final List<EventosAgenda> list = [];
 
-    if (decodedData.isEmpty && response.statusCode == 200) {
+    print(response.statusCode);
+
+    if (decodedData.isNotEmpty && response.statusCode == 200) {
       decodedData.forEach((element) {
-        final temp = EventModel.fromJson(element);
+        final temp = EventosAgenda.fromJson(element);
         list.add(temp);
       });
     }
