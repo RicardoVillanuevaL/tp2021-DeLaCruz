@@ -21,10 +21,7 @@ dependencies:
   http: ^0.13.4
   intl:
   table_calendar: ^3.0.3
-  #camera
-  #http
-  #location locator
-  #google maps
+  google_maps_flutter: ^2.1.0
 
 
 dev_dependencies:
