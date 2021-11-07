@@ -5,7 +5,7 @@ class LoadUtils{
 late BitmapDescriptor pinIcon;
 
 load()async{
-  pinIcon = await BitmapDescriptor.fromAssetImage( ImageConfiguration(devicePixelRatio: 1.0,size: Size(10, 12)) , 'assets/pinTp.png');
+  pinIcon = await BitmapDescriptor.fromAssetImage( ImageConfiguration(devicePixelRatio: 1.0) , 'assets/pin106.png');
 }
 
 }
