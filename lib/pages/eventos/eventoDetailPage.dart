@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tp_2021_app/models/proyectoInfoModel.dart';
+import 'package:tp_2021_app/pages/widgets/viewWidgets.dart';
 import 'package:tp_2021_app/resources/colors.dart';
-import 'package:tp_2021_app/resources/styles.dart';
 import 'package:tp_2021_app/services/eventServices.dart';
 
 class EventoDetailPage extends StatefulWidget {
@@ -40,6 +40,7 @@ final location =  LatLng(-12.0337104, -77.0081133);
                 ItemDetailProyecto(title: 'Fecha del Evento',text: proyecto.fecha.toString(),icon: FontAwesomeIcons.calendarAlt,),
                 ItemDetailProyecto(title: 'Hora del Evento',text: proyecto.hora,icon: FontAwesomeIcons.clock,),
                 ItemDetailProyecto(title: 'Cliente',text: proyecto.cliente,icon: FontAwesomeIcons.userAlt,),
+                ItemDetailProyecto(title: 'Telefono',text: proyecto.celular,icon: FontAwesomeIcons.phone,),
                 ItemDetailProyecto(title: 'Direccion del Evento',text: proyecto.direccion,icon: FontAwesomeIcons.mapMarkerAlt,),
                 SizedBox(height: 20),
                 Container(
@@ -64,25 +65,4 @@ final location =  LatLng(-12.0337104, -77.0081133);
   }
 }
 
-class ItemDetailProyecto extends StatelessWidget {
-  const ItemDetailProyecto({
-    Key? key,
-    required this.text,
-    required this.title,
-    required this.icon
-  }) : super(key: key);
 
-  final String text;
-  final String title;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: FaIcon(icon, color: colorBlueDark2,size: 32,),
-      ) ,
-      title: Text(title, style: TextStyle(fontFamily: fontsGothic,fontSize: 20),),subtitle: Text(text,style: TextStyle(fontSize: 16,color: colorBlueDark1),),);
-  }
-}

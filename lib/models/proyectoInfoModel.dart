@@ -15,7 +15,9 @@ class ProyectoInfo {
        required this.hora,
        required this.direccion,
        required this.cliente,
-       required this.evento,
+       required this.celular,
+
+       required this.evento
     });
 
     String nombre;
@@ -24,6 +26,7 @@ class ProyectoInfo {
     String direccion;
     String cliente;
     String evento;
+    String celular;
 
     factory ProyectoInfo.fromJson(Map<String, dynamic> json) => ProyectoInfo(
         nombre: json["Nombre"],
@@ -31,7 +34,8 @@ class ProyectoInfo {
         hora: json["Hora"],
         direccion: json["Direccion"],
         cliente: json["Cliente"],
-        evento: json["Evento"],
+        celular: json["Celular"],
+        evento: json["Evento"]
     );
 
     Map<String, dynamic> toJson() => {
@@ -40,6 +44,7 @@ class ProyectoInfo {
         "Hora": hora,
         "Direccion": direccion,
         "Cliente": cliente,
+        "Celular": celular,
         "Evento": evento,
     };
 }

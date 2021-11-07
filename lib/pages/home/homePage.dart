@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:tp_2021_app/models/dashBoard1Model.dart';
 import 'package:tp_2021_app/models/equiposPendientesModel.dart';
+import 'package:tp_2021_app/pages/eventos/eventoDetailPage.dart';
 import 'package:tp_2021_app/pages/home/drawer/drawerIconMenu.dart';
 import 'package:tp_2021_app/pages/widgets/actionWidgets.dart';
 import 'package:tp_2021_app/resources/colors.dart';
@@ -52,6 +54,7 @@ class _BodyHomePageState extends State<BodyHomePage> {
   final date = DateTime.now();
 
   final pruebaFormat = DateFormat('yyyy-MM-dd');
+  final format = DateFormat('dd-MM-yyyy');
 
   @override
   void initState() {
@@ -125,7 +128,7 @@ class _BodyHomePageState extends State<BodyHomePage> {
                   openSeccion: !ddl2)),
           ddl2
               ? FutureBuilder(
-                  future: dashBoardServices.getAllEventosTodayByEmpl(
+                  future: dashBoardServices.getAllEventosMonthByEmpl(
                       pruebaFormat.format(date), 1),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<DashBoard1Model>> snapshot) {
@@ -142,8 +145,17 @@ class _BodyHomePageState extends State<BodyHomePage> {
                                               title: Text(
                                                 e.nombreProyecto,
                                                 style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
                                                     color: Colors.white),
                                               ),
+                                              subtitle:  Text(
+                                              format.format(e.fecha),
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            trailing: IconButton(onPressed: (){
+                                              Navigator.push(context, CupertinoPageRoute(builder: (BuildContext context) => EventoDetailPage(idEvento: e.idProyecto) ));
+                                            }, icon: FaIcon(FontAwesomeIcons.angleRight,color: Colors.white,)),
                                             ))
                                         .toList(),
                                   ),
@@ -178,14 +190,13 @@ class _BodyHomePageState extends State<BodyHomePage> {
                                     children: list
                                         .map((e) => ListTile(
                                               title: Text(
-                                                e.equipo.toString(),
+                                                e.nombre,
                                                 style: TextStyle(
                                                     color: Colors.white),
                                               ),
-                                              leading: Text(
-                                                  '${e.idProyecto.toString()}',
-                                                  style: TextStyle(
-                                                      color: Colors.white)),
+                                              
+                                                      trailing: Text('Cant. Equipos ${e.equipo.toString() }', style: TextStyle(
+                                                    color: Colors.white),),
                                             ))
                                         .toList(),
                                   ),

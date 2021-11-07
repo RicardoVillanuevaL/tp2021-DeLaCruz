@@ -55,7 +55,7 @@ class _EventServices {
       });
     }
   } catch (e) {
-    list.add(ProyectoInfo(cliente: resultError,direccion: resultError,evento: resultError,fecha: DateTime.now(),hora: resultError,nombre: resultError));
+    list.add(ProyectoInfo(cliente: resultError,direccion: resultError,evento: resultError,fecha: DateTime.now(),hora: resultError,nombre: resultError,celular: resultError));
   }
 
     return list[0];
