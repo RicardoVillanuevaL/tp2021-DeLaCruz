@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tp_2021_app/core/dialogs_alert.dart';
-import 'package:tp_2021_app/pages/home/drawer/drawerIconMenu.dart';
+import 'package:tp_2021_app/pages/trabajador/equipos/verDetalleEquipos.dart';
+import 'package:tp_2021_app/pages/trabajador/home/drawer/drawerIconMenu.dart';
 import 'package:tp_2021_app/pages/widgets/actionWidgets.dart';
 import 'package:tp_2021_app/resources/styles.dart';
 
@@ -91,7 +93,11 @@ class _VerificarEntregaEquiposBodyState
               itemBuilder: (BuildContext context, int index) {
                 return InkWell(
                   onTap: () {
-                    print(' item $index ');
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (BuildContext context) =>
+                                VerDetalleEquipos()));
                   },
                   child: Container(
                       child: Row(

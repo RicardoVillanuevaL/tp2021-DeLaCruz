@@ -4,8 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:tp_2021_app/models/dashBoard1Model.dart';
 import 'package:tp_2021_app/models/equiposPendientesModel.dart';
-import 'package:tp_2021_app/pages/eventos/eventoDetailPage.dart';
-import 'package:tp_2021_app/pages/home/drawer/drawerIconMenu.dart';
+import 'package:tp_2021_app/pages/trabajador/eventos/eventoDetailPage.dart';
+import 'package:tp_2021_app/pages/trabajador/home/drawer/drawerIconMenu.dart';
 import 'package:tp_2021_app/pages/widgets/actionWidgets.dart';
 import 'package:tp_2021_app/resources/colors.dart';
 import 'package:intl/intl.dart';
@@ -90,13 +90,13 @@ class _BodyHomePageState extends State<BodyHomePage> {
           ddl1
               ? FutureBuilder(
                   future: dashBoardServices.getAllEventosTodayByEmpl(
-                      pruebaFormat.format(date), 1),
+                      pruebaFormat.format(date), 5),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<DashBoard1Model>> snapshot) {
                     if (snapshot.hasData) {
                       final list = snapshot.data;
                       return Container(
-                        height: list!.length != 0 ? size.height / 3 : 50,
+                        height: list!.length != 0 ? size.height / 8 : 50,
                         child: list.length != 0
                             ? SingleChildScrollView(
                                 child: Column(
@@ -106,8 +106,29 @@ class _BodyHomePageState extends State<BodyHomePage> {
                                             title: Text(
                                               e.nombreProyecto,
                                               style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
                                                   color: Colors.white),
                                             ),
+                                            subtitle: Text(
+                                              format.format(e.fecha),
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            trailing: IconButton(
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      CupertinoPageRoute(
+                                                          builder: (BuildContext
+                                                                  context) =>
+                                                              EventoDetailPage(
+                                                                  idEvento: e
+                                                                      .idProyecto)));
+                                                },
+                                                icon: FaIcon(
+                                                  FontAwesomeIcons.angleRight,
+                                                  color: Colors.white,
+                                                )),
                                           ))
                                       .toList(),
                                 ),
@@ -129,13 +150,13 @@ class _BodyHomePageState extends State<BodyHomePage> {
           ddl2
               ? FutureBuilder(
                   future: dashBoardServices.getAllEventosMonthByEmpl(
-                      pruebaFormat.format(date), 1),
+                      pruebaFormat.format(date), 5),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<DashBoard1Model>> snapshot) {
                     if (snapshot.hasData) {
                       final list = snapshot.data;
                       return Container(
-                          height: list!.length != 0 ? size.height / 3 : 50,
+                          height: list!.length != 0 ? size.height / 8 : 50,
                           child: list.length != 0
                               ? SingleChildScrollView(
                                   child: Column(
@@ -148,14 +169,26 @@ class _BodyHomePageState extends State<BodyHomePage> {
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.white),
                                               ),
-                                              subtitle:  Text(
-                                              format.format(e.fecha),
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            ),
-                                            trailing: IconButton(onPressed: (){
-                                              Navigator.push(context, CupertinoPageRoute(builder: (BuildContext context) => EventoDetailPage(idEvento: e.idProyecto) ));
-                                            }, icon: FaIcon(FontAwesomeIcons.angleRight,color: Colors.white,)),
+                                              subtitle: Text(
+                                                format.format(e.fecha),
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              trailing: IconButton(
+                                                  onPressed: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        CupertinoPageRoute(
+                                                            builder: (BuildContext
+                                                                    context) =>
+                                                                EventoDetailPage(
+                                                                    idEvento: e
+                                                                        .idProyecto)));
+                                                  },
+                                                  icon: FaIcon(
+                                                    FontAwesomeIcons.angleRight,
+                                                    color: Colors.white,
+                                                  )),
                                             ))
                                         .toList(),
                                   ),
@@ -175,7 +208,7 @@ class _BodyHomePageState extends State<BodyHomePage> {
           ddl3
               ? FutureBuilder(
                   future: dashBoardServices.getAllEquiposPendientes(
-                      pruebaFormat.format(date), 1),
+                      pruebaFormat.format(date), 5),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<EquiposPendiente>> snapshot) {
                     if (snapshot.hasData) {
@@ -194,9 +227,11 @@ class _BodyHomePageState extends State<BodyHomePage> {
                                                 style: TextStyle(
                                                     color: Colors.white),
                                               ),
-                                              
-                                                      trailing: Text('Cant. Equipos ${e.equipo.toString() }', style: TextStyle(
-                                                    color: Colors.white),),
+                                              trailing: Text(
+                                                'Cant. Equipos ${e.equipo.toString()}',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
                                             ))
                                         .toList(),
                                   ),

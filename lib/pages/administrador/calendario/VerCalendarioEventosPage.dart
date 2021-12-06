@@ -3,20 +3,21 @@ import 'dart:collection';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:tp_2021_app/controllers/eventosController.dart';
 import 'package:tp_2021_app/models/eventosAgendaModel.dart';
-import 'package:tp_2021_app/pages/eventos/eventoDetailPage.dart';
-import 'package:tp_2021_app/pages/home/drawer/drawerIconMenu.dart';
+import 'package:tp_2021_app/pages/trabajador/eventos/eventoDetailPage.dart';
+import 'package:tp_2021_app/pages/trabajador/home/drawer/drawerIconMenu.dart';
 import 'package:tp_2021_app/resources/colors.dart';
 import 'package:tp_2021_app/resources/styles.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:tp_2021_app/services/eventServices.dart';
 
-class VerAgendaPage extends StatelessWidget {
+class VerCalendarioEventosPage extends StatelessWidget {
   final VoidCallback openDrawer;
-  VerAgendaPage({Key? key, required this.openDrawer}) : super(key: key);
+  const VerCalendarioEventosPage({Key? key, required this.openDrawer})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,19 +32,19 @@ class VerAgendaPage extends StatelessWidget {
           ),
           leading: DrawerMenuWidget(
               onClicked: openDrawer, icon: FontAwesomeIcons.calendar)),
-      body: VerAgendaBody(),
+      body: VerCalendarioBody(),
     );
   }
 }
 
-class VerAgendaBody extends StatefulWidget {
-  VerAgendaBody({Key? key}) : super(key: key);
+class VerCalendarioBody extends StatefulWidget {
+  const VerCalendarioBody({Key? key}) : super(key: key);
 
   @override
-  _VerAgendaBodyState createState() => _VerAgendaBodyState();
+  _VerCalendarioBodyState createState() => _VerCalendarioBodyState();
 }
 
-class _VerAgendaBodyState extends State<VerAgendaBody> {
+class _VerCalendarioBodyState extends State<VerCalendarioBody> {
   DateTime? _selectedDay;
   DateTime _focusedDay = DateTime.now();
   late final ValueNotifier<List<Event>> _selectedEvents;
@@ -200,11 +201,13 @@ class _VerAgendaBodyState extends State<VerAgendaBody> {
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Colors.greenAccent[700])),
-                        onTap: () => Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                                builder: (BuildContext context) =>
-                                    EventoDetailPage(idEvento: id))),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (BuildContext context) =>
+                                      EventoDetailPage(idEvento: id)));
+                        },
                         subtitle: Text(hora,
                             style:
                                 TextStyle(color: Colors.white, fontSize: 16)),

@@ -1,5 +1,5 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:tp_2021_app/pages/home/drawer/drawerItem.dart';
+import 'package:tp_2021_app/pages/trabajador/home/drawer/drawerItem.dart';
 
 class DrawerItems {
   static const home =

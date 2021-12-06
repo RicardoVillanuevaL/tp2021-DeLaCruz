@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tp_2021_app/pages/home/drawer/drawerItem.dart';
-import 'package:tp_2021_app/pages/home/drawer/listOptionsDrawer.dart';
+import 'package:tp_2021_app/pages/trabajador/home/drawer/drawerItem.dart';
+import 'package:tp_2021_app/pages/trabajador/home/drawer/listOptionsDrawer.dart';
 
 class DrawerWidget extends StatelessWidget {
   final ValueChanged<DrawerItem> onSelectedItem;

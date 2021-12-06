@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:tp_2021_app/core/loadUtils.dart';
 import 'package:tp_2021_app/models/proyectoInfoModel.dart';
+import 'package:tp_2021_app/pages/trabajador/eventos/verificarLlegadaPage.dart';
 import 'package:tp_2021_app/pages/widgets/viewWidgets.dart';
 import 'package:tp_2021_app/resources/colors.dart';
 import 'package:tp_2021_app/services/eventServices.dart';
@@ -21,7 +24,11 @@ class EventoDetailPage extends StatefulWidget {
 class _EventoDetailPageState extends State<EventoDetailPage> {
   late int idProyecto;
   late String urlLauncher;
-  final location = LatLng(-12.0337104, -77.0081133);
+  final location = LatLng(-12.033738,-77.0092206);
+  final format = DateFormat('dd-MM-yyyy');
+  late DateTime fechaValidacion;
+  late String hora;
+  bool llegada =  false;
 
   @override
   void initState() {
@@ -32,16 +39,34 @@ class _EventoDetailPageState extends State<EventoDetailPage> {
 
   void openRoute() async{
       if (Platform.isAndroid) {
-        urlLauncher = "comgooglemaps://?center=-12.0337104,-77.0081133";
+        urlLauncher = "https://www.google.com/maps/search/?api=1&query=-12.033738,-77.0092206";
       } else if(Platform.isIOS) {
-        urlLauncher = "https://maps.apple.com/?q=-12.0337104,-77.0081133";
+        urlLauncher = "https://maps.apple.com/?q=-12.033738,-77.0092206";
       }
       if (await canLaunch(urlLauncher)){
         await launch(urlLauncher);
       }else{
-        print('no se puede esta shit');
+        print('no se ir a esa Ruta');
       }
   }
+
+  void validacionFechaHora(ProyectoInfo proyecto){
+    fechaValidacion = proyecto.fecha;
+    hora = proyecto.hora;
+    DateTime date;
+    try {
+      date = fechaValidacion.add(Duration(hours: int.parse(hora.substring(0,2))));
+      final temp = DateTime.now();
+      final p1 = date.difference(temp);
+      if (p1.inHours >= 2) {
+        llegada = true;
+      } else {
+        llegada = false;
+      }
+    } catch (e) {
+     
+    }}
+  
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +80,7 @@ class _EventoDetailPageState extends State<EventoDetailPage> {
         builder: (BuildContext context, AsyncSnapshot<ProyectoInfo> snapshot) {
           if (snapshot.hasData) {
             final proyecto = snapshot.data!;
+            validacionFechaHora(proyecto);
             return Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -68,7 +94,7 @@ class _EventoDetailPageState extends State<EventoDetailPage> {
                       ),
                       ItemDetailProyecto(
                         title: 'Fecha del Evento',
-                        text: proyecto.fecha.toString(),
+                        text: format.format(proyecto.fecha) ,
                         icon: FontAwesomeIcons.calendarAlt,
                       ),
                       ItemDetailProyecto(
@@ -124,7 +150,27 @@ class _EventoDetailPageState extends State<EventoDetailPage> {
                               color: Colors.white,
                             ),
                             label: Text('¿Como llegar aquí?',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-                          ))
+                          )),
+                        SizedBox(
+                        height: 10,
+                        ),
+                        
+                          llegada? Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: colorBlueDark2) ),
+                          child: TextButton.icon(
+                            onPressed: () {
+                             Navigator.push(context, CupertinoPageRoute(builder: (BuildContext context) => VerificarLlegadaPage(idEvento: proyecto,id: idProyecto) ));
+                            },
+                            icon: FaIcon(
+                              FontAwesomeIcons.camera,
+                              color: colorBlueDark2,
+                            ),
+                            label: Text('Marque su llegada',style: TextStyle(color: colorBlueDark2,fontWeight: FontWeight.bold),),
+                          )): SizedBox(height: 5)
                     ],
                   ),
                 ));

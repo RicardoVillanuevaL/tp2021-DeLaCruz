@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tp_2021_app/pages/home/homeMainPage.dart';
 import 'package:tp_2021_app/pages/login/loginPage.dart';
 import 'package:tp_2021_app/pages/login/splashPage.dart';
+import 'package:tp_2021_app/pages/trabajador/home/homeMainPage.dart';
 import 'package:tp_2021_app/resources/colors.dart';
 
 class MyApp extends StatelessWidget {

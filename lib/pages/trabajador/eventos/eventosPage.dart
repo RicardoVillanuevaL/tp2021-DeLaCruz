@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:tp_2021_app/pages/home/drawer/drawerIconMenu.dart';
+import 'package:tp_2021_app/pages/trabajador/home/drawer/drawerIconMenu.dart';
 import 'package:tp_2021_app/pages/widgets/actionWidgets.dart';
 import 'package:tp_2021_app/resources/colors.dart';
 import 'package:tp_2021_app/resources/styles.dart';

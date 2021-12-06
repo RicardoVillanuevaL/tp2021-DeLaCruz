@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:tp_2021_app/pages/equipos/verificarEntregaPage.dart';
-import 'package:tp_2021_app/pages/eventos/eventosPage.dart';
-import 'package:tp_2021_app/pages/eventos/verAgendaPage.dart';
-import 'package:tp_2021_app/pages/home/drawer/drawerWidget.dart';
-import 'package:tp_2021_app/pages/home/drawer/drawerItem.dart';
-import 'package:tp_2021_app/pages/home/drawer/listOptionsDrawer.dart';
-import 'package:tp_2021_app/pages/home/homePage.dart';
 import 'package:tp_2021_app/pages/login/profilePage.dart';
+import 'package:tp_2021_app/pages/trabajador/equipos/verificarEntregaPage.dart';
+import 'package:tp_2021_app/pages/trabajador/eventos/eventosPage.dart';
+import 'package:tp_2021_app/pages/trabajador/eventos/verAgendaPage.dart';
+import 'package:tp_2021_app/pages/trabajador/home/drawer/drawerItem.dart';
+import 'package:tp_2021_app/pages/trabajador/home/drawer/drawerWidget.dart';
+import 'package:tp_2021_app/pages/trabajador/home/drawer/listOptionsDrawer.dart';
+import 'package:tp_2021_app/pages/trabajador/home/homePage.dart';
 import 'package:tp_2021_app/resources/colors.dart';
 
 class HomePage extends StatefulWidget {
