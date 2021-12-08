@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tp_2021_app/core/navigation.dart';
 import 'package:tp_2021_app/pages/trabajador/home/homeMainPage.dart';
 import 'package:tp_2021_app/pages/widgets/actionWidgets.dart';
-import 'package:tp_2021_app/pages/widgets/inputsWidgets.dart';
 import 'package:tp_2021_app/resources/styles.dart';
 
 class LoginPage extends StatefulWidget {
