@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:tp_2021_app/core/sharedPreferences.dart';
 import 'package:tp_2021_app/models/dashBoard1Model.dart';
 import 'package:tp_2021_app/models/equiposPendientesModel.dart';
 import 'package:tp_2021_app/pages/trabajador/eventos/eventoDetailPage.dart';
@@ -52,6 +53,7 @@ class _BodyHomePageState extends State<BodyHomePage> {
   var listEquiposPendientes = [];
   late bool ddl1, ddl2, ddl3;
   final date = DateTime.now();
+  final prefs = PreferenciasUsuario();
 
   final pruebaFormat = DateFormat('yyyy-MM-dd');
   final format = DateFormat('dd-MM-yyyy');
@@ -78,7 +80,7 @@ class _BodyHomePageState extends State<BodyHomePage> {
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Text(
-              'Bienvenido Ricardo Villanueva este es tu resumen de hoy:',
+              'Bienvenido ${prefs.nombre} ${prefs.apellido} este es tu resumen de hoy:',
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
           ),
@@ -90,7 +92,7 @@ class _BodyHomePageState extends State<BodyHomePage> {
           ddl1
               ? FutureBuilder(
                   future: dashBoardServices.getAllEventosTodayByEmpl(
-                      pruebaFormat.format(date), 5),
+                      pruebaFormat.format(date), prefs.id),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<DashBoard1Model>> snapshot) {
                     if (snapshot.hasData) {
@@ -150,7 +152,7 @@ class _BodyHomePageState extends State<BodyHomePage> {
           ddl2
               ? FutureBuilder(
                   future: dashBoardServices.getAllEventosMonthByEmpl(
-                      pruebaFormat.format(date), 5),
+                      pruebaFormat.format(date), prefs.id),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<DashBoard1Model>> snapshot) {
                     if (snapshot.hasData) {
@@ -208,7 +210,7 @@ class _BodyHomePageState extends State<BodyHomePage> {
           ddl3
               ? FutureBuilder(
                   future: dashBoardServices.getAllEquiposPendientes(
-                      pruebaFormat.format(date), 5),
+                      pruebaFormat.format(date),prefs.id),
                   builder: (BuildContext context,
                       AsyncSnapshot<List<EquiposPendiente>> snapshot) {
                     if (snapshot.hasData) {

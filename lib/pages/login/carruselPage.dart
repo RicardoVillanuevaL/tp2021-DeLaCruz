@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tp_2021_app/core/sharedPreferences.dart';
 import 'package:tp_2021_app/pages/login/loginPage.dart';
 import 'package:tp_2021_app/pages/widgets/actionWidgets.dart';
 import 'package:tp_2021_app/resources/styles.dart';
@@ -12,6 +13,7 @@ class CarruselPage extends StatefulWidget {
 }
 
 class _CarruselPageState extends State<CarruselPage> {
+  PreferenciasUsuario prefs = PreferenciasUsuario();
   PageController controller = PageController(initialPage: 0);
   int page = 0;
   var listTitle = [
@@ -58,10 +60,30 @@ class _CarruselPageState extends State<CarruselPage> {
       Stack(
         children: [
           Positioned(
+            top: 80,
+            left: 40,
+            right: 40,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(listTitle[page], style: titleLoginStyle),
+                Container(
+                  margin: const EdgeInsets.all(10),
+                  child: Text(
+                    listbody[page],
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
               top: 20,
               right: 10,
               child: InkWell(
                 onTap: () {
+                  prefs.carrusel = true;
                   Navigator.pushAndRemoveUntil(
                       context,
                       CupertinoPageRoute(
@@ -80,25 +102,6 @@ class _CarruselPageState extends State<CarruselPage> {
                   ]),
                 ),
               )),
-          Positioned(
-            top: 80,
-            left: 40,
-            right: 40,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(listTitle[page], style: titleLoginStyle),
-                Container(
-                  margin: const EdgeInsets.all(10),
-                  child: Text(
-                    listbody[page],
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                ),
-              ],
-            ),
-          )
         ],
       ),
       Positioned(
@@ -112,6 +115,7 @@ class _CarruselPageState extends State<CarruselPage> {
                 splashColor: Colors.white,
                 onTap: () {
                   if (page == 2) {
+                    prefs.carrusel = true;
                     Navigator.pushAndRemoveUntil(
                         context,
                         CupertinoPageRoute(

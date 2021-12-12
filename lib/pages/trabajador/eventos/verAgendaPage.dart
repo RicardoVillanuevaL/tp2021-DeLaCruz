@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tp_2021_app/controllers/eventosController.dart';
+import 'package:tp_2021_app/core/sharedPreferences.dart';
 import 'package:tp_2021_app/models/eventosAgendaModel.dart';
 import 'package:tp_2021_app/pages/trabajador/eventos/eventoDetailPage.dart';
 import 'package:tp_2021_app/pages/trabajador/home/drawer/drawerIconMenu.dart';
@@ -44,6 +45,7 @@ class VerAgendaBody extends StatefulWidget {
 }
 
 class _VerAgendaBodyState extends State<VerAgendaBody> {
+  final prefs = PreferenciasUsuario();
   DateTime? _selectedDay;
   DateTime _focusedDay = DateTime.now();
   late final ValueNotifier<List<Event>> _selectedEvents;
@@ -61,7 +63,7 @@ class _VerAgendaBodyState extends State<VerAgendaBody> {
 
   void loadEvents() async {
     eventos =
-        await eventServices.getAllEventosAgenda(DateTime.now().toString(), 1);
+        await eventServices.getAllEventosAgenda(DateTime.now().toString(), prefs.id);
     eventos.forEach((e) {
       listaDias.add(DateTime.parse(e.fecha));
     });

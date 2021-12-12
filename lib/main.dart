@@ -7,6 +7,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = new PreferenciasUsuario();
   await prefs.initPrefs();
-  await PushNotificationProvider.initializeApp();
+  await PushNotificationProvider().initializeApp();
   runApp(MyApp());
 }

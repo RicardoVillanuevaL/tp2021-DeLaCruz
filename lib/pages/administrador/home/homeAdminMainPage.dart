@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:tp_2021_app/pages/login/profilePage.dart';
-import 'package:tp_2021_app/pages/trabajador/equipos/verificarEntregaPage.dart';
-import 'package:tp_2021_app/pages/trabajador/eventos/eventosPage.dart';
-import 'package:tp_2021_app/pages/trabajador/eventos/verAgendaPage.dart';
-import 'package:tp_2021_app/pages/trabajador/home/drawer/drawerItem.dart';
-import 'package:tp_2021_app/pages/trabajador/home/drawer/drawerWidget.dart';
-import 'package:tp_2021_app/pages/trabajador/home/drawer/listOptionsDrawer.dart';
-import 'package:tp_2021_app/pages/trabajador/home/homePage.dart';
+import 'package:tp_2021_app/pages/administrador/calendario/VerCalendarioEventosPage.dart';
+import 'package:tp_2021_app/pages/administrador/home/drawer/drawerItem.dart';
+import 'package:tp_2021_app/pages/administrador/home/homeAdminPage.dart';
+import 'package:tp_2021_app/pages/administrador/incidencias/verIncidenciasPage.dart';
+import 'package:tp_2021_app/pages/administrador/notificaciones/verNotificacionesPage.dart';
+import 'package:tp_2021_app/pages/administrador/proyectos/verProyectosPage.dart';
+
+import 'package:tp_2021_app/pages/administrador/home/drawer/drawerWidget.dart';
+import 'package:tp_2021_app/pages/administrador/home/drawer/listOptionsDrawer.dart';
+
+
 import 'package:tp_2021_app/resources/colors.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+class HomePageAdmin extends StatefulWidget {
+  HomePageAdmin({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageAdminState createState() => _HomePageAdminState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageAdminState extends State<HomePageAdmin> {
   late double xOffset;
   late double yOffset;
   late double scaleFactor;
   late bool isDrawerOpen;
-  DrawerItem item = DrawerItems.home;
+  DrawerItem item = DrawerItemsAdmin.home;
   bool isDragging = false;
   @override
   void initState() {
@@ -59,7 +62,7 @@ class _HomePageState extends State<HomePage> {
         child: DrawerWidget(
           onSelectedItem: (item) {
             switch (item) {
-              case DrawerItems.logout:
+              case DrawerItemsAdmin.logout:
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text('Cerrar Sesion')));
                 return;
@@ -112,17 +115,17 @@ class _HomePageState extends State<HomePage> {
 //ESTO ES LO CAMBIA DESPUES ALL IS SIMILAR
   Widget getDrawerPage() {
     switch (item) {
-      case DrawerItems.agenda:
-        return VerAgendaPage(openDrawer: openDrawer);
-      case DrawerItems.eventos:
-        return EventosPage(openDrawer: openDrawer);
-      case DrawerItems.equipos:
-        return VerificarEntregaEPage(openDrawer: openDrawer);
-      case DrawerItems.profile:
-        return ProfilePage(openDrawer: openDrawer);
-      case DrawerItems.home:
+      case DrawerItemsAdmin.agenda:
+        return VerCalendarioEventosPage(openDrawer: openDrawer);
+      case DrawerItemsAdmin.eventos:
+        return VerNotificacionesPage(openDrawer: openDrawer);
+      case DrawerItemsAdmin.equipos:
+        return VerIncidenciasPage(openDrawer: openDrawer);
+      case DrawerItemsAdmin.profile:
+        return VerProyectosPage(openDrawer: openDrawer);
+      case DrawerItemsAdmin.home:
       default:
-        return HomeWidget(openDrawer: openDrawer);
+        return HomeAdminWidget(openDrawer: openDrawer);
     }
   }
 }

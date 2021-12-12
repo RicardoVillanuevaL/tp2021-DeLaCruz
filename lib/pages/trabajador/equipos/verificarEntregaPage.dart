@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:tp_2021_app/core/dialogs_alert.dart';
+import 'package:tp_2021_app/core/sharedPreferences.dart';
+import 'package:tp_2021_app/models/equiposPendientesModel.dart';
 import 'package:tp_2021_app/pages/trabajador/equipos/verDetalleEquipos.dart';
 import 'package:tp_2021_app/pages/trabajador/home/drawer/drawerIconMenu.dart';
 import 'package:tp_2021_app/pages/widgets/actionWidgets.dart';
 import 'package:tp_2021_app/resources/styles.dart';
+import 'package:tp_2021_app/services/eventServices.dart';
 
 class VerificarEntregaEPage extends StatelessWidget {
   final VoidCallback openDrawer;
@@ -29,22 +31,7 @@ class VerificarEntregaEPage extends StatelessWidget {
         actions: [
           IconButton(
               padding: const EdgeInsets.only(top: 20, right: 20),
-              onPressed: () {
-                // showDialog(
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => DialogInfo(
-                        title: 'INFORMACION',
-                        descriptions: 'Hola asdbnashjdbashdhjasdbhjasdbhjasdb',
-                        icon: FontAwesomeIcons.cameraRetro)));
-                //     context: context,
-                //     builder: (context) {
-                //       return DialogInfo(
-                //           title: 'INFORMACION',
-                //           descriptions:
-                //               'Hola asdbnashjdbashdhjasdbhjasdbhjasdb',
-                //           icon: FontAwesomeIcons.cameraRetro);
-                //     });
-              },
+              onPressed: () {},
               icon: FaIcon(FontAwesomeIcons.infoCircle))
         ],
       ),
@@ -63,15 +50,7 @@ class VerificarEntregaEquiposBody extends StatefulWidget {
 
 class _VerificarEntregaEquiposBodyState
     extends State<VerificarEntregaEquiposBody> {
-  // List<String> listaValue = [];
-
-  // int count = 6;
-
-  // void addValue() {
-  //   for (var i = 0; i < count; i++) {
-  //     listaValue.add('Estado');
-  //   }
-  // }
+  final prefs = PreferenciasUsuario();
 
   @override
   void initState() {
@@ -87,58 +66,96 @@ class _VerificarEntregaEquiposBodyState
         children: [
           TitleDivider(title: 'Equipos Asignados'),
           SizedBox(height: 8),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 8,
-              itemBuilder: (BuildContext context, int index) {
-                return InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (BuildContext context) =>
-                                VerDetalleEquipos()));
-                  },
-                  child: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Nombre del Proyecto',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: fontsGothic,
-                                      fontSize: 16),
-                                ),
-                                Text(
-                                  '18-10-2021',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: fontsGothic,
-                                      fontSize: 16),
-                                )
-                              ],
-                            ),
-                          ),
-                          IconButton(
-                              onPressed: () {},
-                              icon: FaIcon(FontAwesomeIcons.chevronRight,
-                                  color: Colors.white))
-                        ],
-                      ),
-                      margin: const EdgeInsets.all(8),
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          color: Colors.white10,
-                          borderRadius: BorderRadius.circular(12))),
-                );
-              },
+          Flexible(
+            child: Container(
+              child: FutureBuilder(
+                future: eventServices.getAllEquiposAsignados(prefs.id),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<EquiposPendiente>> snapshot) {
+                  if (snapshot.hasData) {
+                    final temp = snapshot.data;
+                    if (temp!.length != 0) {
+                      return ListView.builder(
+                        itemCount: temp.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (BuildContext context) =>
+                                            VerDetalleEquipos(
+                                              pendiente: temp[index],
+                                            )));
+                              },
+                              child: Container(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              temp[index].nombre,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontFamily: fontsGothic,
+                                                  fontSize: 16),
+                                            ),
+                                            Text(
+                                              temp[index].fecha,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontFamily: fontsGothic,
+                                                  fontSize: 16),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      IconButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                CupertinoPageRoute(
+                                                    builder: (BuildContext
+                                                            context) =>
+                                                        VerDetalleEquipos(
+                                                          pendiente:
+                                                              temp[index],
+                                                        )));
+                                          },
+                                          icon: FaIcon(
+                                              FontAwesomeIcons.chevronRight,
+                                              color: Colors.white))
+                                    ],
+                                  ),
+                                  margin: const EdgeInsets.all(8),
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white10,
+                                      borderRadius:
+                                          BorderRadius.circular(12))));
+                        },
+                      );
+                    } else {
+                      return Center(
+                        child: Text(
+                          'No tiene Notificaciones',
+                          style: titleAppBar,
+                        ),
+                      );
+                    }
+                  } else {
+                    return Positioned.fill(
+                        child: Center(child: CupertinoActivityIndicator()));
+                  }
+                },
+              ),
             ),
           )
         ],

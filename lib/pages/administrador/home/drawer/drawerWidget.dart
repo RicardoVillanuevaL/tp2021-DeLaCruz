@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tp_2021_app/pages/trabajador/home/drawer/drawerItem.dart';
-import 'package:tp_2021_app/pages/trabajador/home/drawer/listOptionsDrawer.dart';
+import 'package:tp_2021_app/pages/administrador/home/drawer/drawerItem.dart';
+import 'package:tp_2021_app/pages/administrador/home/drawer/listOptionsDrawer.dart';
 
 class DrawerWidget extends StatelessWidget {
   final ValueChanged<DrawerItem> onSelectedItem;
@@ -18,7 +18,7 @@ class DrawerWidget extends StatelessWidget {
       );
 
   Widget buildDrawerItems(BuildContext context) => Column(
-      children: DrawerItems.all
+      children: DrawerItemsAdmin.all
           .map((e) => ListTile(
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
