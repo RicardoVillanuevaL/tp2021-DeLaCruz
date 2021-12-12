@@ -91,7 +91,7 @@ class _BodyHomeAdminPageState extends State<BodyHomeAdminPage> {
                                   children: list
                                       .map((e) => ListTile(
                                             title: Text(
-                                              e.nombre!,
+                                              e.nombre,
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.white),
