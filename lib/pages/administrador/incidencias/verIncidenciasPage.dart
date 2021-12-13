@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tp_2021_app/pages/administrador/home/drawer/drawerIconMenu.dart';
@@ -28,7 +26,7 @@ class VerIncidenciasPage extends StatelessWidget {
 }
 
 class VerIncidenciasBody extends StatefulWidget {
-  const VerIncidenciasBody({ Key? key }) : super(key: key);
+  const VerIncidenciasBody({Key? key}) : super(key: key);
 
   @override
   _VerIncidenciasBodyState createState() => _VerIncidenciasBodyState();
@@ -36,9 +34,13 @@ class VerIncidenciasBody extends StatefulWidget {
 
 class _VerIncidenciasBodyState extends State<VerIncidenciasBody> {
   @override
+  void initState() {
+    print('lib-pages-administrador-incidencias-verIncidenciasPage.dart');
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      
-    );
+    return Container();
   }
 }

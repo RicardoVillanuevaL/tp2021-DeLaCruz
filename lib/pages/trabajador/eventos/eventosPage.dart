@@ -44,8 +44,9 @@ class _EventosBodyState extends State<EventosBody> {
 
   @override
   void initState() {
-    page = 0;
     super.initState();
+    page = 0;
+    print('lib-pages-trabajador-eventos-eventosPage.dart');
   }
 
   @override
@@ -87,17 +88,24 @@ class _EventosBodyState extends State<EventosBody> {
                                 itemCount: temp.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   return Container(
-                                    decoration: BoxDecoration(border:Border.all(color: colorBlueDark1) ,borderRadius: BorderRadius.circular(20) ),
-                                    margin: const EdgeInsetsDirectional.all(8),
-                                    child: ListTile(
-                                    leading: Icon(
-                                      Icons.notifications,
-                                      size: 28,
-                                      color: Colors.green,
-                                    ),
-                                    title: Text(temp[index].titulo ?? 'No carga el titulo'),
-                                    subtitle: Text(temp[index].cuerpo ?? 'No carga la notificación'),
-                                  ));
+                                      decoration: BoxDecoration(
+                                          border:
+                                              Border.all(color: colorBlueDark1),
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      margin:
+                                          const EdgeInsetsDirectional.all(8),
+                                      child: ListTile(
+                                        leading: Icon(
+                                          Icons.notifications,
+                                          size: 28,
+                                          color: Colors.green,
+                                        ),
+                                        title: Text(temp[index].titulo ??
+                                            'No carga el titulo'),
+                                        subtitle: Text(temp[index].cuerpo ??
+                                            'No carga la notificación'),
+                                      ));
                                 },
                               );
                             } else {
@@ -109,7 +117,9 @@ class _EventosBodyState extends State<EventosBody> {
                               );
                             }
                           } else {
-                             return Positioned.fill(child: Center(child: CupertinoActivityIndicator()));
+                            return Positioned.fill(
+                                child: Center(
+                                    child: CupertinoActivityIndicator()));
                           }
                         },
                       )
@@ -124,7 +134,11 @@ class _EventosBodyState extends State<EventosBody> {
                                 itemCount: temp.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   return Container(
-                                    decoration: BoxDecoration(border:Border.all(color: colorBlueDark1) ,borderRadius: BorderRadius.circular(20) ),
+                                    decoration: BoxDecoration(
+                                        border:
+                                            Border.all(color: colorBlueDark1),
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
                                     margin: const EdgeInsetsDirectional.all(8),
                                     child: ListTile(
                                       leading: Icon(
@@ -132,8 +146,10 @@ class _EventosBodyState extends State<EventosBody> {
                                         size: 28,
                                         color: Colors.green,
                                       ),
-                                      title: Text(temp[index].nombreProyecto ?? 'No carga el proyecto'),
-                                      subtitle: Text(temp[index].reporte?? 'No carga el reporte'),
+                                      title: Text(temp[index].nombreProyecto ??
+                                          'No carga el proyecto'),
+                                      subtitle: Text(temp[index].reporte ??
+                                          'No carga el reporte'),
                                     ),
                                   );
                                 },
@@ -147,7 +163,9 @@ class _EventosBodyState extends State<EventosBody> {
                               );
                             }
                           } else {
-                            return Positioned.fill(child: Center(child: CupertinoActivityIndicator()));
+                            return Positioned.fill(
+                                child: Center(
+                                    child: CupertinoActivityIndicator()));
                           }
                         },
                       )),

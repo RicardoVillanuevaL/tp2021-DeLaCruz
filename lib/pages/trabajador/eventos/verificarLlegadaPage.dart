@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tp_2021_app/core/sharedPreferences.dart';
 import 'package:tp_2021_app/models/proyectoInfoModel.dart';
-import 'package:tp_2021_app/pages/trabajador/equipos/listaEquiposEvento.dart';
 import 'package:tp_2021_app/pages/trabajador/eventos/registrarIncidenciasPage.dart';
 import 'package:tp_2021_app/resources/colors.dart';
 import 'package:tp_2021_app/resources/styles.dart';
@@ -119,13 +118,13 @@ class _VerificarLlegadaPageState extends State<VerificarLlegadaPage> {
 
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text('Registro Exitoso!')));
-                        Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                                builder: (BuildContext context) =>
-                                    ListaEquiposEvento(
-                                      id: id,
-                                    )));
+                        // Navigator.push(
+                        //     context,
+                        //     CupertinoPageRoute(
+                        //         builder: (BuildContext context) =>
+                        //             ListaEquiposEvento(
+                        //               id: id,
+                        //             )));
                       }
                     },
                     icon: FaIcon(

@@ -38,11 +38,17 @@ class VerNotificacionesBody extends StatefulWidget {
 
 class _VerNotificacionesBodyState extends State<VerNotificacionesBody> {
   @override
+  void initState() {
+    print('lib-pages-administrador-notificaciones-verNotificacionesPage.dart');
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
       height: size.height,
-      padding: const EdgeInsets.only(top: 28,left: 12,right: 12),
+      padding: const EdgeInsets.only(top: 28, left: 12, right: 12),
       child: FutureBuilder(
         future: eventServices.getAllNotificaciones(6),
         builder: (BuildContext context,
@@ -64,17 +70,20 @@ class _VerNotificacionesBodyState extends State<VerNotificacionesBody> {
                           size: 28,
                           color: Colors.green,
                         ),
-                        title: Text(temp[index].titulo ?? 'No carga el titulo',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontFamily: fontsGothic,
-                                        fontSize: 16),),
+                        title: Text(
+                          temp[index].titulo ?? 'No carga el titulo',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: fontsGothic,
+                              fontSize: 16),
+                        ),
                         subtitle: Text(
-                            temp[index].cuerpo ?? 'No carga la notificación',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontFamily: fontsGothic,
-                                        fontSize: 14),),
+                          temp[index].cuerpo ?? 'No carga la notificación',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: fontsGothic,
+                              fontSize: 14),
+                        ),
                       ));
                 },
               );

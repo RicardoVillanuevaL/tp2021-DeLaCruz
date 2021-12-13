@@ -11,6 +11,13 @@ class RegistrarIncidenciasPage extends StatefulWidget {
 
 class _RegistrarIncidenciasPageState extends State<RegistrarIncidenciasPage> {
   var controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    print('lib-pages-trabajador-eventos-registrarIncidenciasPage.dart');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -53,11 +53,12 @@ class _VerCalendarioBodyState extends State<VerCalendarioBody> {
 
   @override
   void initState() {
+    super.initState();
+    print('lib-pages-administrador-calendario-VerCalendarioEventosPage.dart');
     initializeDateFormatting();
     _selectedDay = _focusedDay;
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
     loadEvents();
-    super.initState();
   }
 
   void loadEvents() async {

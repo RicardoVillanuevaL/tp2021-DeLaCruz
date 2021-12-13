@@ -54,16 +54,17 @@ class _VerAgendaBodyState extends State<VerAgendaBody> {
 
   @override
   void initState() {
+    super.initState();
     initializeDateFormatting();
     _selectedDay = _focusedDay;
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
     loadEvents();
-    super.initState();
+    print('lib-pages-trabajador-eventos-verAgendaPage.dart');
   }
 
   void loadEvents() async {
-    eventos =
-        await eventServices.getAllEventosAgenda(DateTime.now().toString(), prefs.id);
+    eventos = await eventServices.getAllEventosAgenda(
+        DateTime.now().toString(), prefs.id);
     eventos.forEach((e) {
       listaDias.add(DateTime.parse(e.fecha));
     });

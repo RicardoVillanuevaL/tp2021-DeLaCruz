@@ -24,38 +24,41 @@ class EventoDetailPage extends StatefulWidget {
 class _EventoDetailPageState extends State<EventoDetailPage> {
   late int idProyecto;
   late String urlLauncher;
-  final location = LatLng(-12.033738,-77.0092206);
+  final location = LatLng(-12.033738, -77.0092206);
   final format = DateFormat('dd-MM-yyyy');
   late DateTime fechaValidacion;
   late String hora;
-  bool llegada =  false;
+  bool llegada = false;
 
   @override
   void initState() {
+    super.initState();
     idProyecto = this.widget.idEvento;
     loadUtils.load();
-    super.initState();
+    print('lib-pages-trabajador-eventos-eventoDetailPage.dart');
   }
 
-  void openRoute() async{
-      if (Platform.isAndroid) {
-        urlLauncher = "https://www.google.com/maps/search/?api=1&query=-12.033738,-77.0092206";
-      } else if(Platform.isIOS) {
-        urlLauncher = "https://maps.apple.com/?q=-12.033738,-77.0092206";
-      }
-      if (await canLaunch(urlLauncher)){
-        await launch(urlLauncher);
-      }else{
-        print('no se ir a esa Ruta');
-      }
+  void openRoute() async {
+    if (Platform.isAndroid) {
+      urlLauncher =
+          "https://www.google.com/maps/search/?api=1&query=-12.033738,-77.0092206";
+    } else if (Platform.isIOS) {
+      urlLauncher = "https://maps.apple.com/?q=-12.033738,-77.0092206";
+    }
+    if (await canLaunch(urlLauncher)) {
+      await launch(urlLauncher);
+    } else {
+      print('no se ir a esa Ruta');
+    }
   }
 
-  void validacionFechaHora(ProyectoInfo proyecto){
+  void validacionFechaHora(ProyectoInfo proyecto) {
     fechaValidacion = proyecto.fecha;
     hora = proyecto.hora;
     DateTime date;
     try {
-      date = fechaValidacion.add(Duration(hours: int.parse(hora.substring(0,2))));
+      date =
+          fechaValidacion.add(Duration(hours: int.parse(hora.substring(0, 2))));
       final temp = DateTime.now();
       final p1 = date.difference(temp);
       if (p1.inHours >= 2) {
@@ -63,10 +66,8 @@ class _EventoDetailPageState extends State<EventoDetailPage> {
       } else {
         llegada = false;
       }
-    } catch (e) {
-     
-    }}
-  
+    } catch (e) {}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +95,7 @@ class _EventoDetailPageState extends State<EventoDetailPage> {
                       ),
                       ItemDetailProyecto(
                         title: 'Fecha del Evento',
-                        text: format.format(proyecto.fecha) ,
+                        text: format.format(proyecto.fecha),
                         icon: FontAwesomeIcons.calendarAlt,
                       ),
                       ItemDetailProyecto(
@@ -137,7 +138,7 @@ class _EventoDetailPageState extends State<EventoDetailPage> {
                         height: 10,
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
                           decoration: BoxDecoration(
                               color: colorBlueDark2,
                               borderRadius: BorderRadius.circular(20)),
@@ -149,28 +150,46 @@ class _EventoDetailPageState extends State<EventoDetailPage> {
                               FontAwesomeIcons.locationArrow,
                               color: Colors.white,
                             ),
-                            label: Text('¿Como llegar aquí?',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-                          )),
-                        SizedBox(
-                        height: 10,
-                        ),
-                        
-                          llegada? Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: colorBlueDark2) ),
-                          child: TextButton.icon(
-                            onPressed: () {
-                             Navigator.push(context, CupertinoPageRoute(builder: (BuildContext context) => VerificarLlegadaPage(idEvento: proyecto,id: idProyecto) ));
-                            },
-                            icon: FaIcon(
-                              FontAwesomeIcons.camera,
-                              color: colorBlueDark2,
+                            label: Text(
+                              '¿Como llegar aquí?',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
-                            label: Text('Marque su llegada',style: TextStyle(color: colorBlueDark2,fontWeight: FontWeight.bold),),
-                          )): SizedBox(height: 5)
+                          )),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      llegada
+                          ? Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(color: colorBlueDark2)),
+                              child: TextButton.icon(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (BuildContext context) =>
+                                              VerificarLlegadaPage(
+                                                  idEvento: proyecto,
+                                                  id: idProyecto)));
+                                },
+                                icon: FaIcon(
+                                  FontAwesomeIcons.camera,
+                                  color: colorBlueDark2,
+                                ),
+                                label: Text(
+                                  'Marque su llegada',
+                                  style: TextStyle(
+                                      color: colorBlueDark2,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ))
+                          : SizedBox(height: 5)
                     ],
                   ),
                 ));

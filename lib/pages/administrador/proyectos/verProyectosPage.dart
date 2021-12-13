@@ -26,7 +26,7 @@ class VerProyectosPage extends StatelessWidget {
 }
 
 class VerProyectosBody extends StatefulWidget {
-  const VerProyectosBody({ Key? key }) : super(key: key);
+  const VerProyectosBody({Key? key}) : super(key: key);
 
   @override
   _VerProyectosBodyState createState() => _VerProyectosBodyState();
@@ -34,9 +34,13 @@ class VerProyectosBody extends StatefulWidget {
 
 class _VerProyectosBodyState extends State<VerProyectosBody> {
   @override
+  void initState() {
+    print('lib-pages-administrador-proyectos-verProyectosPage.dart');
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      
-    );
+    return Container();
   }
 }
