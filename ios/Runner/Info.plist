@@ -49,8 +49,10 @@
   			<string>http</string>
 		</array>
 		<key>NSCameraUsageDescription</key>
-		<string>Can I use the camera please?</string>
+		<string>¿Puedo usar la cámara por favor?</string>
 		<key>NSMicrophoneUsageDescription</key>
-		<string>Can I use the mic please?</string>
+		<string>¿Puedo usar el micrófono por favor?</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>¿Puedo usar la galeria por favor?</string>
 	</dict>
 </plist>

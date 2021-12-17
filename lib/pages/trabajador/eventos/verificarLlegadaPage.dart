@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -11,7 +14,8 @@ import 'package:tp_2021_app/services/eventServices.dart';
 class VerificarLlegadaPage extends StatefulWidget {
   final ProyectoInfo idEvento;
   final int id;
-  VerificarLlegadaPage({Key? key, required this.idEvento, required this.id})
+  final XFile image;
+  VerificarLlegadaPage({Key? key, required this.idEvento, required this.id , required this.image})
       : super(key: key);
 
   @override
@@ -21,22 +25,28 @@ class VerificarLlegadaPage extends StatefulWidget {
 class _VerificarLlegadaPageState extends State<VerificarLlegadaPage> {
   final prefs = PreferenciasUsuario();
 
+  
+
   late ProyectoInfo idProyecto;
   late int id;
-  late TextEditingController controllerComentario;
   bool existeFoto = false;
 
   @override
   void initState() {
+    super.initState();
     idProyecto = this.widget.idEvento;
     id = this.widget.id;
-    controllerComentario = TextEditingController();
-    super.initState();
+   
   }
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final size = MediaQuery.of(context).size;
+        return Scaffold(
       appBar: AppBar(
         title: Text('Verificar Llegada al Evento'),
         backgroundColor: colorBlueDark2,
@@ -61,32 +71,12 @@ class _VerificarLlegadaPageState extends State<VerificarLlegadaPage> {
                       fontSize: 18,
                     )),
               ),
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  height: 150,
-                  width: double.infinity,
-                  margin: const EdgeInsets.all(12.0),
-                  decoration: BoxDecoration(
-                      color: colorGray,
-                      border: Border.all(color: colorBlueDark2),
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Center(
-                    child: FaIcon(
-                      FontAwesomeIcons.cameraRetro,
-                      size: 48,
-                    ),
-                  ),
-                ),
-              ),
               Container(
-                  width: 350,
-                  child: TextField(
-                    controller: controllerComentario,
-                    maxLines: 3,
-                    decoration: InputDecoration(
-                        hintText: 'Escriba un comentario (opcional)'),
-                  )),
+                height: size.height/2,
+                width: double.infinity,
+                margin: const EdgeInsets.all(12.0),
+                child: Image.file(File(widget.image.path),fit: BoxFit.fill ,),
+              ),
               SizedBox(
                 height: 10,
               ),
@@ -97,11 +87,13 @@ class _VerificarLlegadaPageState extends State<VerificarLlegadaPage> {
                       borderRadius: BorderRadius.circular(20)),
                   child: TextButton.icon(
                     onPressed: () {
-                      if (existeFoto) {
+                     
                         eventServices.postNotificacion(
                             prefs.id,
                             'Llegada al Evento',
                             '${prefs.nombre} ${prefs.apellido} acaba de registrar su llegada al evento ${idProyecto.nombre} ');
+                          
+                        eventServices.postVerificarLlegada(prefs.id, DateTime.now().toString(), '20:30:00' , id, widget.image);
 
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text('Registro Exitoso!')));
@@ -109,23 +101,8 @@ class _VerificarLlegadaPageState extends State<VerificarLlegadaPage> {
                             context,
                             CupertinoPageRoute(
                                 builder: (BuildContext context) =>
-                                    RegistrarIncidenciasPage()));
-                      } else {
-                        eventServices.postNotificacion(
-                            prefs.id,
-                            'Llegada al Evento',
-                            '${prefs.nombre} ${prefs.apellido} acaba de registrar su llegada al evento ${idProyecto.nombre} ');
-
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Registro Exitoso!')));
-                        // Navigator.push(
-                        //     context,
-                        //     CupertinoPageRoute(
-                        //         builder: (BuildContext context) =>
-                        //             ListaEquiposEvento(
-                        //               id: id,
-                        //             )));
-                      }
+                                    RegistrarIncidenciasPage(proyecto: id)));
+                      
                     },
                     icon: FaIcon(
                       FontAwesomeIcons.locationArrow,

@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:tp_2021_app/core/loadUtils.dart';
 import 'package:tp_2021_app/models/proyectoInfoModel.dart';
+import 'package:tp_2021_app/pages/trabajador/eventos/openCamera.dart';
 import 'package:tp_2021_app/pages/trabajador/eventos/verificarLlegadaPage.dart';
 import 'package:tp_2021_app/pages/widgets/viewWidgets.dart';
 import 'package:tp_2021_app/resources/colors.dart';
@@ -174,7 +175,7 @@ class _EventoDetailPageState extends State<EventoDetailPage> {
                                       context,
                                       CupertinoPageRoute(
                                           builder: (BuildContext context) =>
-                                              VerificarLlegadaPage(
+                                              CameraOpen(
                                                   idEvento: proyecto,
                                                   id: idProyecto)));
                                 },

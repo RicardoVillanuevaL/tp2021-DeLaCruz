@@ -132,7 +132,7 @@ class _VerDetalleEquiposState extends State<VerDetalleEquipos> {
             child: TextButton(
               child: Text('Aceptar'),
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
               },
             ),
           ),

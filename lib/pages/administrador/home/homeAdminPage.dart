@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:tp_2021_app/core/sharedPreferences.dart';
 import 'package:tp_2021_app/models/pedidosModel.dart';
+import 'package:tp_2021_app/pages/administrador/proyectos/verPedidoPage.dart';
 import 'package:tp_2021_app/pages/widgets/actionWidgets.dart';
 import 'package:tp_2021_app/resources/styles.dart';
 import 'package:tp_2021_app/resources/colors.dart';
@@ -83,7 +84,7 @@ class _BodyHomeAdminPageState extends State<BodyHomeAdminPage> {
                     if (snapshot.hasData) {
                       final list = snapshot.data;
                       return Container(
-                        height: list!.length != 0 ? size.height / 8 : 50,
+                        height: list!.length != 0 ? size.height / 7 : 50,
                         child: list.length != 0
                             ? SingleChildScrollView(
                                 child: Column(
@@ -103,14 +104,7 @@ class _BodyHomeAdminPageState extends State<BodyHomeAdminPage> {
                                             ),
                                             trailing: IconButton(
                                                 onPressed: () {
-                                                  // Navigator.push(
-                                                  //     context,
-                                                  //     CupertinoPageRoute(
-                                                  //         builder: (BuildContext
-                                                  //                 context) =>
-                                                  //             EventoDetailPage(
-                                                  //                 idEvento: e
-                                                  //                     .idProyecto)));
+                                                   
                                                 },
                                                 icon: FaIcon(
                                                   FontAwesomeIcons.angleRight,
@@ -120,7 +114,7 @@ class _BodyHomeAdminPageState extends State<BodyHomeAdminPage> {
                                       .toList(),
                                 ),
                               )
-                            : Text('No tienes Eventos el dia de hoy',
+                            : Text('No tienes Pedidos Solicitados',
                                 style: messageNotExistList),
                       );
                     } else {
@@ -142,7 +136,7 @@ class _BodyHomeAdminPageState extends State<BodyHomeAdminPage> {
                     if (snapshot.hasData) {
                       final list = snapshot.data;
                       return Container(
-                          height: list!.length != 0 ? size.height / 8 : 50,
+                          height: list!.length != 0 ? size.height / 7 : 50,
                           child: list.length != 0
                               ? SingleChildScrollView(
                                   child: Column(
@@ -162,14 +156,14 @@ class _BodyHomeAdminPageState extends State<BodyHomeAdminPage> {
                                               ),
                                               trailing: IconButton(
                                                   onPressed: () {
-                                                    // Navigator.push(
-                                                    //     context,
-                                                    //     CupertinoPageRoute(
-                                                    //         builder: (BuildContext
-                                                    //                 context) =>
-                                                    //             EventoDetailPage(
-                                                    //                 idEvento: e
-                                                    //                     .idProyecto)));
+                                                    print(e.toJson());
+                                                     Navigator.push(
+                                                         context,
+                                                         CupertinoPageRoute(
+                                                             builder: (BuildContext
+                                                                     context) =>
+                                                                 PedidoDetail(
+                                                                     idPedido:  e.idPed)));
                                                   },
                                                   icon: FaIcon(
                                                     FontAwesomeIcons.angleRight,
@@ -179,7 +173,7 @@ class _BodyHomeAdminPageState extends State<BodyHomeAdminPage> {
                                         .toList(),
                                   ),
                                 )
-                              : Text('No tienes Eventos este mes',
+                              : Text('No tiene Pedidos Aceptados',
                                   style: messageNotExistList));
                     } else {
                       return LinearProgressIndicator();
@@ -199,7 +193,7 @@ class _BodyHomeAdminPageState extends State<BodyHomeAdminPage> {
                     if (snapshot.hasData) {
                       final list = snapshot.data;
                       return Container(
-                          height: list!.length != 0 ? size.height / 3 : 50,
+                          height: list!.length != 0 ? size.height / 7 : 50,
                           child: list.length != 0
                               ? SingleChildScrollView(
                                   child: Column(
@@ -220,7 +214,7 @@ class _BodyHomeAdminPageState extends State<BodyHomeAdminPage> {
                                   ),
                                 )
                               : Text(
-                                  'No tienes Equipos Pendientes por devolver',
+                                  'No tiene Pedidos en Curso',
                                   style: messageNotExistList));
                     } else {
                       return LinearProgressIndicator();
